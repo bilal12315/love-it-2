@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Денежный дождь</title>
+<style>
+  body {
+    position: relative;
+    overflow-x: hidden;
+    height: 100vh;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+  }
+  button {
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    background: gold;
+    color: black;
+    font-weight: bold;
+    box-shadow: 0 0 10px gold;
+  }
+  .money {
+    position: fixed;
+    font-size: 24px;
+    user-select: none;
+    pointer-events: none;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+  }
+  @keyframes fall {
+    0% {
+      transform: translateY(-50px);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<button id="moneyBtn">Денежный дождь!</button>
+
+<script>
+  const btn = document.getElementById('moneyBtn');
+
+  function createMoney() {
+    const money = document.createElement('div');
+    money.classList.add('money');
+
+    const symbols = ['💵', '💰', '🪙', '💸', '₽', '$', '€', '¥'];
+    money.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+
+    money.style.left = Math.random() * window.innerWidth + 'px';
+
+    money.style.animationDuration = (3 + Math.random() * 3) + 's';
+
+    document.body.appendChild(money);
+
+   
+    money.addEventListener('animationend', () => {
+      money.remove();
+    });
+  }
+
+  btn.addEventListener('click', () => {
+    
+    const count = 30; 
+    for(let i = 0; i < count; i++) {
+      setTimeout(createMoney, i * 100); 
+    }
+  });
+</script>
+
+</body>
+</html>
